@@ -9,6 +9,19 @@ emcc \
   vendor/zstd/lib/common/threading.c \
   vendor/zstd/lib/common/xxhash.c \
   vendor/zstd/lib/common/zstd_common.c \
+  vendor/zstd/lib/compress/fse_compress.c \
+  vendor/zstd/lib/compress/hist.c \
+  vendor/zstd/lib/compress/huf_compress.c \
+  vendor/zstd/lib/compress/zstd_compress.c \
+  vendor/zstd/lib/compress/zstd_compress_literals.c \
+  vendor/zstd/lib/compress/zstd_compress_sequences.c \
+  vendor/zstd/lib/compress/zstd_compress_superblock.c \
+  vendor/zstd/lib/compress/zstd_double_fast.c \
+  vendor/zstd/lib/compress/zstd_fast.c \
+  vendor/zstd/lib/compress/zstd_lazy.c \
+  vendor/zstd/lib/compress/zstd_ldm.c \
+  vendor/zstd/lib/compress/zstd_opt.c \
+  vendor/zstd/lib/compress/zstdmt_compress.c \
   vendor/zstd/lib/decompress/huf_decompress.c \
   vendor/zstd/lib/decompress/zstd_ddict.c \
   vendor/zstd/lib/decompress/zstd_decompress.c \
