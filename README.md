@@ -1,6 +1,6 @@
 # @foxglove/wasm-zstd
 
-https://github.com/facebook/zstd compiled to WebAssembly. For now only decompression is supported. PRs welcome!
+https://github.com/facebook/zstd compiled to WebAssembly and exposed as a high-level TypeScript/JavaScript API . PRs welcome!
 
 ## API
 
