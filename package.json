@@ -1,0 +1,27 @@
+{
+  "name": "@foxglove/wasm-zstd",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "repository": "foxglove/wasm-zstd",
+  "files": [
+    "dist/index.js",
+    "dist/wasm-zstd.js",
+    "dist/wasm-zstd.wasm",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "build": "./docker-build.sh",
+    "prepack": "yarn build",
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "eslint": "8.33.0",
+    "mocha": "10.2.0",
+    "prettier": "2.8.4"
+  },
+  "prettier": {
+    "printWidth": 120
+  }
+}
