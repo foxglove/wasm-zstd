@@ -4,42 +4,42 @@ https://github.com/facebook/zstd compiled to WebAssembly. For now only decompres
 
 ## API
 
-`@foxglove/wasm-zstd` exports a single function:
+`@foxglove/wasm-zstd` exports:
 
-```js
-export default (buffer: Buffer, destinationByteSize: number) => Buffer;
+```typescript
+export const isLoaded: Promise<boolean>;
+export function decompress(buffer: Uint8Array, size: number): Buffer;
 ```
 
-Here is an example of using the module:
+Here is an example of compressing then decompressing with this library:
 
 ```js
-import fs from "fs";
-import decompress from "@foxglove/wasm-zstd";
+import fs from "fs/promises";
+import zstd from "@foxglove/wasm-zstd";
 
-const compressedBytes = fs.readFileSync("compressed.zstd");
+async function main() {
+  const inputData = await fs.readFile("input.txt");
 
-// Currently you need to know the size of the output buffer so the wasm runtime
-// can allocate enough bytes to decompress into
-const outputBytes = compressedBytes * 10;
-const decompressedBytes = decompress(compressedBytes, outputBytes);
+  // Wait for the wasm module to load
+  await zstd.isLoaded;
+
+  // Compress and save to a file with zstd compression level 3
+  const compressedBytes = zstd.compress(inputData, 3);
+  await fs.writeFile("compressed.zst", compressedBytes);
+
+  // Currently you need to know the size of the output buffer so the wasm runtime
+  // can allocate enough bytes to decompress into
+  const outputSize = inputData.byteLength;
+
+  // Decompress
+  const decompressedBytes = zstd.decompress(compressedBytes, inputData.byteLength);
+  assert(decompressedBytes.byteLength === inputData.byteLength);
+}
 ```
 
 ## Using the module in a browser
 
 Emscripten compiled WebAssembly modules are built in 2 parts: a `.js` side and a `.wasm` side. In the browser the `.js` side needs to download the `.wasm` side from the server so it can compile it. There is [more information available in the emscripten documentation](https://kripken.github.io/emscripten-site/docs/compiling/Deploying-Pages.html).
-
-## Asynchronous loading & compiling
-
-After the `.wasm` binary is loaded (via `fetch` in the browser or `require` in node) it must be compiled by the WebAssembly runtime. If you call `decompress` before it is finished compiling it will throw an error indicating it isn't ready yet. To wait for the module to be loaded you can do something like the following:
-
-```
-import decompress from "@foxglove/wasm-zstd";
-
-async function doWork() {
-  await decompress.isLoaded;
-  decompress(buffer, outputByteLength);
-}
-```
 
 ## Developing locally
 
