@@ -51,7 +51,7 @@ Emscripten compiled WebAssembly modules are built in 2 parts: a `.js` side and a
 
 ## License
 
-@foxglove/wasm-zstd is licensed under [MIT License](https://opensource.org/licenses/MIT).
+@foxglove/wasm-zstd is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Releasing
 
