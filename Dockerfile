@@ -1,13 +1,13 @@
-FROM emscripten/emsdk:3.1.26
+FROM emscripten/emsdk:3.1.74
 
-# install yarn
-RUN npm install -g yarn
+# enable corepack for Yarn 4.x
+RUN corepack enable
 
 # move source files into /src and yarn install
-COPY package.json /src
-COPY yarn.lock /src
-RUN yarn install --production --frozen-lockfile
-COPY . /src
+WORKDIR /src
+COPY package.json yarn.lock .yarnrc.yml ./
+RUN yarn install --immutable
+COPY . .
 
 # set production node environment
 ENV NODE_ENV=production
